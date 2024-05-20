@@ -314,7 +314,7 @@ class InfoSvnCommand:
     # the '0?' part in the middle is an indication of whether the resource is
     # locked, see 'svn help ls'
     lspattern = re.compile(
-        r'^ *(?P<rev>\d+) +(?P<author>.+?) +(0? *(?P<size>\d+))? '
+        r'^ *(?P<rev>\d+) +(?P<author>[^ ]+?) +(0? *(?P<size>\d+))? '
             r'*(?P<date>\w+ +\d{2} +[\d:]+) +(?P<file>.*)$')
     def __init__(self, line):
         # this is a typical line from 'svn ls http://...'

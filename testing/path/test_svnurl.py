@@ -91,5 +91,22 @@ class TestSvnInfoCommand:
         assert info.last_author == 'autoadmi'
         assert info.kind == 'dir'
 
+    def test_svn_CVE_2022_42969_poc1(self):
+        line = "   2256      hpk        165 Nov 24 17:55 __init__.py" + " " * 5000
+        start = datetime.datetime.now().timestamp()
+        info = InfoSvnCommand(line)
+        end = datetime.datetime.now().timestamp()
+        assert end-start < 0.5
+
+    def test_svn_CVE_2022_42969_poc2(self):
+        line = ' 0' + ' ' * 200 
+        start = datetime.datetime.now().timestamp()
+        try:
+            info = InfoSvnCommand(line)
+        except AttributeError:
+            pass # means it finished parsing but has no groups, as it is invalid
+        end = datetime.datetime.now().timestamp()
+        assert end-start < 0.5
+
 def test_badchars():
     py.test.raises(ValueError, "py.path.svnurl('http://host/tmp/@@@:')")
